@@ -4,30 +4,40 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import base.Base;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import junit.framework.Assert;
+import pageobjects.Login_Page;
 
-public class LoginPage {
+public class LoginPage extends Base {
 
-	WebDriver driver;	
 	
+	Login_Page lp = new Login_Page(); 
 	
 	@Given("^User launch chrome browser and start the application$")
 	public void user_launch_chrome_browser_and_start_the_application() throws Throwable {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Lap\\eclipse-workspace\\Amazon_Cucumber\\Drivers\\chromedriver.exe");
-		driver=new ChromeDriver();
-		driver.get("https://www.amazon.com/");
+		/*System.setProperty("webdriver.chrome.driver", "C:\\Users\\Lap\\eclipse-workspace\\Amazon_Cucumber\\Drivers\\chromedriver.exe");
+		driver=new ChromeDriver();*/
+		Base.getDriver(null);
+		Thread.sleep(3000);
 	}
-
+		
 	@When("^User entered valid \"(.*)\" and valid \"(.*)\"$")
-	public void user_entered_valid_username_and_valid_password(String username, String password) throws Throwable {	 
+	/*public void user_entered_valid_username_and_valid_password(String username, String password) throws Throwable {	 
 		driver.findElement(By.xpath("//a[@id='nav-link-accountList']")).click();
 		driver.findElement(By.xpath("//input[@id='ap_email']")).sendKeys(username);
 		driver.findElement(By.xpath("//input[@id='continue']")).click();
 		driver.findElement(By.xpath("//input[@id='ap_password']")).sendKeys(password);
-		driver.findElement(By.xpath("//input[@id='signInSubmit']")).click();
+		driver.findElement(By.xpath("//input[@id='signInSubmit']")).click();*/
+		
+		public void user_entered_valid_username_and_valid_password(String username, String password) throws Throwable {	 
+			lp.clickSignInButton();
+			lp.enterUserName(username);
+			lp.clickContinueButton();
+			lp.enterpassword(password);
+			lp.clicksignInSubmitButton();			
 	}
 
 	@Then("^User entered into the home page successfully$")
